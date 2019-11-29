@@ -15,15 +15,35 @@
  */
 package org.springframework.samples.petclinic.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-/**
- * @author Juergen Hoeller
- *         Can be Cat, Dog, Hamster...
- */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "types")
-public class PetType extends NamedEntity {
+public class PetType extends BaseEntity {
 
+    @Builder
+    public PetType(Long id, String name) {
+        super(id);
+        this.name = name;
+    }
+
+    @Column(name = "name")
+    private String name;
+
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -16,10 +16,23 @@
 package org.springframework.samples.petclinic.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Simple domain object representing a list of veterinarians. Mostly here to be used for the 'vets' {@link
@@ -27,17 +40,21 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Arjen Poutsma
  */
-@XmlRootElement
-public class Vet {
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "vets")
+public class Vet extends Person {
 
-    private List<Vet> vets;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"),
+        inverseJoinColumns = @JoinColumn(name = "speciality_id"))
+    private Set<Speciality> specialities = new HashSet<>();
 
-    @XmlElement
-    public List<Vet> getVetList() {
-        if (vets == null) {
-            vets = new ArrayList<>();
-        }
-        return vets;
+    public Vet(Long id, String firstName, String lastName) {
+        super(id, firstName, lastName);
     }
-
 }

@@ -18,8 +18,14 @@ package org.springframework.samples.petclinic.model;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Simple JavaBean domain object representing a visit.
@@ -27,49 +33,27 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Ken Krebs
  * @author Dave Syer
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "visits")
 public class Visit extends BaseEntity {
 
-    @Column(name = "visit_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date")
     private LocalDate date;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "pet_id")
-    private Integer petId;
-
-    /**
-     * Creates a new instance of Visit for the current date
-     */
-    public Visit() {
-        this.date = LocalDate.now();
-    }
+    @ManyToOne
+    @JoinColumn(name = "pet_id")
+    private Pet pet;
 
     public LocalDate getDate() {
-        return this.date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getPetId() {
-        return this.petId;
-    }
-
-    public void setPetId(Integer petId) {
-        this.petId = petId;
+        return date;
     }
 
 }
