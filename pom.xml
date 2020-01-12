@@ -42,7 +42,4 @@
       </plugin>-->
     </plugins>
   </build>
-  <scm>
-    <developerConnection>scm:git:https://github.com/Fharra/udemy-petclinic.git</developerConnection>
-  </scm>
 </project>
