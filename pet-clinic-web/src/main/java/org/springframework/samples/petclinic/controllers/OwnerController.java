@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("owners")
 @Controller
 public class OwnerController {
-
     private final OwnerService ownerService;
 
     public OwnerController(OwnerService ownerService) {
@@ -25,4 +24,10 @@ public class OwnerController {
     public String findOwners(){
         return "notImplemented";
     }
+
+    @RequestMapping({"", "/index", "/index.html"})
+    public String listVets(){
+        return "owners/index";
+    }
+
 }
