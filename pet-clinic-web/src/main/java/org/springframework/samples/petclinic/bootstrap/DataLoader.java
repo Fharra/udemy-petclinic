@@ -7,10 +7,12 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Speciality;
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.services.OwnerService;
 import org.springframework.samples.petclinic.services.PetTypeService;
 import org.springframework.samples.petclinic.services.SpecialtyService;
 import org.springframework.samples.petclinic.services.VetService;
+import org.springframework.samples.petclinic.services.VisitService;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,6 +22,7 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
+    private final VisitService visitService;
 
     @Override
     public int hashCode() {
@@ -27,11 +30,13 @@ public class DataLoader implements CommandLineRunner {
     }
 
     public DataLoader(OwnerService ownerService, VetService vetService,
-        PetTypeService petTypeService, SpecialtyService specialtyService) {
+        PetTypeService petTypeService, SpecialtyService specialtyService,
+        VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialtyService = specialtyService;
+        this.visitService = visitService;
     }
 
 
@@ -60,6 +65,7 @@ public class DataLoader implements CommandLineRunner {
         owner1.setTelephone("913456694");
         ownerService.save(owner1);
 
+
         Pet dogWithOwner = new Pet();
         dogWithOwner.setPetType(saveDogPetType);
         dogWithOwner.setOwner(owner1);
@@ -81,6 +87,13 @@ public class DataLoader implements CommandLineRunner {
         catWithOwner.setBirthDate(LocalDate.now());
         catWithOwner.setName("Rosco");
         owner1.getPets().add(catWithOwner);
+
+
+        Visit visit = new Visit();
+        visit.setPet(catWithOwner);
+        visit.setDate(LocalDate.now());
+        visit.setDescription("first visit");
+        visitService.save(visit);
 
         Speciality radiology = new Speciality();
         radiology.setDescription("Radiology");

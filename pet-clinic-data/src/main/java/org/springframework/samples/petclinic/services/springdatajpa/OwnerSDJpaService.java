@@ -6,8 +6,6 @@ import java.util.Set;
 import org.springframework.context.annotation.Profile;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.repositories.OwnerRepository;
-import org.springframework.samples.petclinic.repositories.PetRepository;
-import org.springframework.samples.petclinic.repositories.PetTypeRepository;
 import org.springframework.samples.petclinic.services.OwnerService;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +14,15 @@ import org.springframework.stereotype.Service;
 public class OwnerSDJpaService implements OwnerService {
 
      private final OwnerRepository ownerRepository;
-     private final PetRepository petRepository;
-     private final PetTypeRepository petTypeRepository;
 
     public OwnerSDJpaService(
-        OwnerRepository ownerRepository, PetRepository petRepository,
-        PetTypeRepository petTypeRepository) {
+        OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
-        this.petRepository = petRepository;
-        this.petTypeRepository = petTypeRepository;
     }
 
     @Override
-    public Owner findByLastName(String lastname) {
+    public Owner findByLastName(String lastname)
+    {
         return ownerRepository.findByLastName(lastname);
     }
 
