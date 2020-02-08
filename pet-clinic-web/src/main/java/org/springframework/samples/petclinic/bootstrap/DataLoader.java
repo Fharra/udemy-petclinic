@@ -9,6 +9,7 @@ import org.springframework.samples.petclinic.model.Speciality;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.services.OwnerService;
+import org.springframework.samples.petclinic.services.PetService;
 import org.springframework.samples.petclinic.services.PetTypeService;
 import org.springframework.samples.petclinic.services.SpecialtyService;
 import org.springframework.samples.petclinic.services.VetService;
@@ -23,6 +24,7 @@ public class DataLoader implements CommandLineRunner {
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
     private final VisitService visitService;
+    private final PetService petService;
 
     @Override
     public int hashCode() {
@@ -31,12 +33,13 @@ public class DataLoader implements CommandLineRunner {
 
     public DataLoader(OwnerService ownerService, VetService vetService,
         PetTypeService petTypeService, SpecialtyService specialtyService,
-        VisitService visitService) {
+        VisitService visitService, PetService petService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialtyService = specialtyService;
         this.visitService = visitService;
+        this.petService = petService;
     }
 
 
@@ -86,6 +89,7 @@ public class DataLoader implements CommandLineRunner {
         catWithOwner.setOwner(owner2);
         catWithOwner.setBirthDate(LocalDate.now());
         catWithOwner.setName("Rosco");
+        petService.save(catWithOwner);
         owner1.getPets().add(catWithOwner);
 
 
