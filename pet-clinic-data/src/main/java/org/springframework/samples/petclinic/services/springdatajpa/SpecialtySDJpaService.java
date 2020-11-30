@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.services.springdatajpa;
 
 import java.util.HashSet;
 import java.util.Set;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.samples.petclinic.model.Speciality;
 import org.springframework.samples.petclinic.repositories.SpecialtyRepository;
@@ -9,15 +10,11 @@ import org.springframework.samples.petclinic.services.SpecialtyService;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 @Profile("springdatajpa")
 public class SpecialtySDJpaService implements SpecialtyService {
 
     private final SpecialtyRepository specialtyRepository;
-
-    public SpecialtySDJpaService(
-        SpecialtyRepository specialtyRepository) {
-        this.specialtyRepository = specialtyRepository;
-    }
 
     @Override
     public Set<Speciality> findAll() {

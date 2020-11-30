@@ -60,12 +60,8 @@ public class DataLoader implements CommandLineRunner {
         cat.setName("Perrete1");
         PetType saveCatPetType = petTypeService.save(cat);
 
-        Owner owner1 = new Owner();
-        owner1.setFirstName("Owner 1");
-        owner1.setLastName("LastName ");
-        owner1.setAddress("123 Brickerel");
-        owner1.setCity("London");
-        owner1.setTelephone("913456694");
+        Owner owner1 = Owner.builder().address("123 Brickerel").city("London").telephone("913456694").id(1l)
+            .firstName("Owner 1").lastName("LastName").build();
         ownerService.save(owner1);
 
 

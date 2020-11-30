@@ -5,20 +5,27 @@
   <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/static/resources/images/favicon.png}">
   <title>Title</title>
 </head>
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
-    </tr>
-  </thead>
-  <tbody>
-  <tr th:each="owner : ${owners}">
-    <td th:text="${owner.id}"></td>
-    <td th:text="${owner.firstName}"></td>
-    <td th:text="${owner.lastName}"></td>
-  </tr>
-  </tbody>
-</table>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h1 class="panel-title"></h1>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="owner : ${owners}">
+          <td th:text="${owner.id}"></td>
+          <td th:text="${owner.firstName}"></td>
+          <td th:text="${owner.lastName}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 </html>
